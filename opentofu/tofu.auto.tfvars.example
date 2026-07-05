@@ -1,0 +1,84 @@
+#=====================================================
+# Connection parameters for the Proxmox node.
+#=====================================================
+virtual_environment_endpoint = "https://<ip-address:port>/
+virtual_environment_token    = "<tf-user@pve!tf-user=token>"
+
+
+#=====================================================
+# Set to true only in a dev environment.
+#=====================================================
+proxmox_insecure             = <true/false>
+
+
+#=====================================================
+# Set to false if using password-based authentication.
+# To use the ssh_agent, run the following commands:
+#   1. ssh-copy-id username@remote_host - This copies your ssh public key to the authorized keys of the specified username on the remote host.
+#   2. eval "$(ssh-agent -s)"           - This starts the ssh-agent on your local machine.
+#   3. ssh-add ~/.ssh/ssh-private-key   - This adds the ssh private key to the ssh-agent.
+#=====================================================
+ssh_agent                    = <true/false>
+
+
+#=====================================================
+# SSH user to connect to the Proxmox node. Not to be confused with the user created on the new VM by cloud-init
+#=====================================================
+ssh_user                     = "<ssh-user"
+
+
+#=====================================================
+# Uncomment if using password-based authentication, and set ssh_agent to false.
+#=====================================================
+#ssh_password                = "<ssh-pw>" 
+
+
+#=====================================================
+# Path to the public key, which is injected into the new VM by cloud-init
+#=====================================================
+ci_ssh_key_path         = "<./cloud-init_ssh_key.pub>"
+
+
+#=====================================================
+# VM Configuration - example values
+#=====================================================
+proxmox_vms = {
+    "debian-1" = {
+        proxmox_node    = "pve"
+        os_type         = "debian"
+        vm_name         = "debian-1"
+        vm_description  = "Debian server to host ..."
+        vm_id           = 100
+        cpu_sockets     = 1
+        cpu_cores       = 4
+        cpu_type        = "X86-64-v3"
+        memory_mb       = 4096
+        disk_size_gb    = 32
+        datastore_id    = "local-lvm"
+        snippet_storage = "local"
+        bridge          = "vmbr0"
+        ipv4_address    = "192.168.1.1/24"
+        ipv4_gateway    = "192.168.1.254"
+        dns_servers     = ["1.1.1.1", "8.8.8.8"]
+        domain          = ".local"
+    }
+    "alma-1" = {
+        proxmox_node    = "pve"
+        os_type         = "alma"
+        vm_name         = "alma-1"
+        vm_description  = "Alma server to host..."
+        vm_id           = 200
+        cpu_sockets     = 1
+        cpu_cores       = 4
+        cpu_type        = "X86-64-v3"
+        memory_mb       = 4096
+        disk_size_gb    = 32
+        datastore_id    = "local-lvm"
+        snippet_storage = "local"
+        bridge          = "vmbr0"
+        ipv4_address    = "192.168.1.100/24"
+        ipv4_gateway    = "192.168.1.254"
+        dns_servers     = ["1.1.1.1", "8.8.8.8"]
+        domain          = ".local"
+    }
+}
