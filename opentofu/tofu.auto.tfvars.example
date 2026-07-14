@@ -1,7 +1,7 @@
 #=====================================================
 # Connection parameters for the Proxmox node.
 #=====================================================
-virtual_environment_endpoint = "https://<ip-address:port>/
+virtual_environment_endpoint = "https://<ip-address:port>/"
 virtual_environment_token    = "<tf-user@pve!tf-user=token>"
 
 
@@ -24,7 +24,7 @@ ssh_agent                    = <true/false>
 #=====================================================
 # SSH user to connect to the Proxmox node. Not to be confused with the user created on the new VM by cloud-init
 #=====================================================
-ssh_user                     = "<ssh-user"
+ssh_user                     = "<ssh-user>"
 
 
 #=====================================================
