@@ -39,7 +39,7 @@ variable "ci_ssh_key_path" {
 }
 
 
-variable "proxmox-vms" {
+variable "proxmox_vms" {
     type = map(object({
         proxmox_node    = string
         os_type         = string
