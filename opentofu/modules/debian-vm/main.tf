@@ -82,6 +82,6 @@ resource "proxmox_download_file" "debian_cloud_image" {
     content_type    = "import"
     datastore_id    = var.image_storage
     node_name       = var.proxmox_node
-    url             = "https://https://cloud.debian.org/images/cloud/trixie/20260623-2518/debian-13-generic-amd64-20260623-2518.qcow2"
-    file_name       = "debian-13-generic-amd64-20260623-2518.qcow2"
+    url             = "https://cloud.debian.org/images/cloud/bookworm/20260712-2537/debian-12-generic-amd64-20260712-2537.qcow2"
+    file_name       = "debian-12-generic-amd64-20260712-2537.qcow2"
 }
