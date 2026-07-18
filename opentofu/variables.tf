@@ -48,7 +48,7 @@ variable "proxmox_vms" {
         vm_id           = number
         cpu_sockets     = optional(number, 1)
         cpu_cores       = optional(number, 4)
-        cpu_type        = optional(string, "X86-64-v3")
+        cpu_type        = optional(string, "x86-64-v3")
         memory_mb       = optional(number, 4096)
         disk_size_gb    = optional(number, 32)
         datastore_id    = optional(string, "local-lvm")
@@ -57,6 +57,6 @@ variable "proxmox_vms" {
         ipv4_address    = string
         ipv4_gateway    = string
         dns_servers     = list(string)
-        domain          = optional(string, ".local")
+        domain          = optional(string, "internal")
     }))
 }

@@ -8,7 +8,7 @@ locals {
 }
 
 
-modules "debian-vm" {
+module "debian-vm" {
     source               = "./modules/debian-vm"
     ci_ssh_key_path      = var.ci_ssh_key_path
     for_each             = local.debian_vms
@@ -30,7 +30,7 @@ modules "debian-vm" {
     dns_servers     = each.value.dns_servers
     domain          = each.value.domain
 }
-modules "alma-vm" {
+module "alma-vm" {
     source               = "./modules/alma-vm"
     ci_ssh_key_path      = var.ci_ssh_key_path
     for_each             = local.alma_vms
