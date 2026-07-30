@@ -1,0 +1,10 @@
+---
+- name: Generate post-remediation results and report for Debian servers
+  ansible.builtin.command: |
+    xccdf eval
+    --profile {{ oscap.xccdf_profile }}
+    --results-arf {{ oscap.scan_outputs_dir }}/{{ oscap_results_xml_file }}
+    --report {{ oscap.scan_outputs_dir }}/{{ oscap_report_html_file }}
+    {{ oscap.ds_file }}
+  register: oscap_report
+  changed_when: oscap_report.rc == 0

@@ -1,0 +1,16 @@
+---
+# User and group of the account running the scan on the target machine
+scan_user: ansible
+scan_group: ansible
+
+# Oscap scan results and reports directory on control node
+scan_archive: /security-scans/alma
+
+# Oscap scan outputs directory on managed nodes
+scan_outputs_dir: /tmp/scap-scans
+
+# CIS lvl 2 Server profiles for Alma Linux 10
+xccdf_profile: xccdf_org.ssgproject.content_profile_cis
+
+# DataStream file for Alma Linux 10
+ds_file: /usr/share/xml/scap/ssg/content/ssg-almalinux10-ds.xml

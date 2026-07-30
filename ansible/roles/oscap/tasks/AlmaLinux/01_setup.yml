@@ -1,0 +1,7 @@
+---
+- name: Install openscap packages on Alma Linux servers
+  ansible.builtin.dnf:
+    name:
+      - openscap-scanner
+      - scap-security-guide
+    state: present

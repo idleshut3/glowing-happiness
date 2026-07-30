@@ -1,0 +1,9 @@
+---
+- name: Copy Debian results and reports back to the control node (need to test)
+  ansible.builtin.fetch:
+    src: "{{ oscap.scan_outputs_dir }}/{{ item }}"
+    dst: "{{ oscap.scan_archive }}/"
+    flat: true
+  loop:
+    - "{{ oscap.results_xml_file }}"
+    - "{{ oscap.report_html_file }}"

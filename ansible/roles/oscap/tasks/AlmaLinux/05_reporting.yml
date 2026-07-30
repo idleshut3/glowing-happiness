@@ -1,0 +1,9 @@
+---
+- name: Copy Alma Linux results and reports back to the control node (need to test)
+  ansible.builtin.fetch:
+    src: "{{ oscap.scan_outputs_dir }}/{{ item }}"
+    dst: "{{ oscap.scan_archive }}/"
+    flat: true
+  loop:
+    - "{{ oscap_results_xml_file }}"
+    - "{{ oscap_report_html_file }}"

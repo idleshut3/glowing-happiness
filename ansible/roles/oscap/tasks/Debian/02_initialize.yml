@@ -1,0 +1,14 @@
+---
+- name: Create scan output directory
+  ansible.builtin.file:
+    path: "{{ oscap.scan_outputs_dir }}"
+    state: directory
+    owner: "{{ oscap.scan_user }}"
+    group: "{{ oscap.scan_group }}"
+    mode: '0750'
+
+- name: Set timestamp for the scan and outputs
+  ansible.builtin.set_fact:
+    oscap_scan_timestamp: "{{ now(utc=true, fmt='%Y%m%d_%H%M%S') }}"
+    oscap_results_xml_file: "{{ inventory_hostname }}_{{ oscap_scan_timestamp }}_results.xml"
+    oscap_report_html_file: "{{ inventory_hostname }}_{{ oscap_scan_timestamp }}_report.html"

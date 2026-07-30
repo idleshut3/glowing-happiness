@@ -1,0 +1,16 @@
+---
+# User and group of the account running the scan on the target machine
+oscap_scan_user: ansible
+oscap_scan_group: ansible
+
+# Oscap scan results and reports directory on control node
+oscap_scan_archive: /security-scans/debian
+
+# Oscap scan outputs directory on managed nodes
+scan_outputs_dir: /tmp/scap-scans
+
+# CIS lvl 2 Server profiles for Debian 12
+xccdf_profile: xccdf_org.ssgproject.content_profile_cis_level2_server
+
+# DataStream file for Debian 12
+ds_file: /usr/share/xml/scap/ssg/content/ssg-debian12-ds.xml

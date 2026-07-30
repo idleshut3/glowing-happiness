@@ -1,0 +1,5 @@
+---
+- name: Clean up scan output files on managed nodes
+  ansible.builtin.file:
+    path: "{{ oscap.scan_outputs_dir }}"
+    state: absent

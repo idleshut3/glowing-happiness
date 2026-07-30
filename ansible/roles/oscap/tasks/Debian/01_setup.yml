@@ -1,0 +1,8 @@
+---
+- name: Install openscap packages on Debian servers
+  ansible.builtin.apt:
+    name:
+      - openscap-scanner
+      - scap-security-guide
+    state: present
+    update_cache: true

@@ -1,0 +1,25 @@
+---
+- name: Scan and remediate Alma Linux 10 servers
+  ansible.builtin.command: |
+    oscap xccdf eval
+    --remediate
+    --fetch-remote-resources
+    --profile {{ oscap.xccdf_profile }}
+    --skip-rule xccdf_org.ssgproject.content_rule_sudo_require_authentication
+    {{ oscap.ds_file }}
+  register: oscap_remediation
+  changed_when: oscap_remediation.rc == 0
+
+- name: Find /etc/sudoers.d/ files
+  ansible.builtin.find:
+    paths:
+      - /etc/sudoers.d/
+  register: sudoers
+
+- name: Remove lines containing NOPASSWD from sudoers files
+  ansible.builtin.replace:
+    regexp: (^(?!#).*[\s]+NOPASSWD[\s]*\:.*$)
+    replace: '# \g<1>'
+    path: "{{ item.path }}"
+    validate: /usr/sbin/visudo -cf %s
+  loop: "{{ ['/etc/sudoers'] + (sudoers.files | map(attribute='path') | reject('search', '/etc/sudoers.d/ansible') | list) }}"

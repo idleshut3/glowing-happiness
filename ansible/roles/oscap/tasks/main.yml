@@ -1,0 +1,23 @@
+---
+- name: Load OS-specific variables
+  ansible.builtin.include_vars:
+    file: "vars/{{ ansible_distribution }}.yml"
+    name: oscap
+
+- name: Install openscap packages
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}/01_setup.yml"
+
+- name: Create scan output directory and set timestamp
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}/02_initialize.yml"
+
+- name: Run openscap remediation on managed nodes
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}/03_remediate.yml"
+
+- name: Generate post-remediation results and reports
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}/04_results.yml"
+
+- name: Retrieve results and results files for review and compliance
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}/05_reporting.yml"
+
+- name: Clean up scan output directory and files on managed nodes
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}/06_cleanup.yml"
