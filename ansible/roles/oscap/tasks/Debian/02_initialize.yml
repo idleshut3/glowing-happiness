@@ -10,5 +10,8 @@
 - name: Set timestamp for the scan and outputs
   ansible.builtin.set_fact:
     oscap_scan_timestamp: "{{ now(utc=true, fmt='%Y%m%d_%H%M%S') }}"
+
+- name: Set scan output file name format
+  ansible.builtin.set_fact:
     oscap_results_xml_file: "{{ inventory_hostname }}_{{ oscap_scan_timestamp }}_results.xml"
     oscap_report_html_file: "{{ inventory_hostname }}_{{ oscap_scan_timestamp }}_report.html"

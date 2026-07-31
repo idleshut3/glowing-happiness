@@ -1,6 +1,6 @@
 ---
 - name: Generate post-remediation results and reports for Alma Linux servers
-  ansible.builtin.command: |
+  ansible.builtin.command: >
     xccdf eval
     --profile {{ oscap.xccdf_profile }}
     --results-arf {{ oscap.scan_outputs_dir }}/{{ oscap_results_xml_file }}

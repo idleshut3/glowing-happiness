@@ -1,6 +1,6 @@
 ---
 - name: Scan and remediate Alma Linux 10 servers
-  ansible.builtin.command: |
+  ansible.builtin.command: >
     oscap xccdf eval
     --profile {{ oscap.xccdf_profile }}
     --fetch-remote-resources
