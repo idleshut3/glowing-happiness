@@ -1,10 +1,10 @@
 ---
 # User and group of the account running the scan on the target machine
-oscap_scan_user: ansible
-oscap_scan_group: ansible
+scan_user: ansible
+scan_group: ansible
 
 # Oscap scan results and reports directory on control node
-oscap_scan_archive: /security-scans/debian
+scan_archive: /security-scans/debian
 
 # Oscap scan outputs directory on managed nodes
 scan_outputs_dir: /tmp/scap-scans
