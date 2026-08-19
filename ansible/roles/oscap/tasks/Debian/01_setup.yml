@@ -3,6 +3,6 @@
   ansible.builtin.apt:
     name:
       - openscap-scanner
-      - scap-security-guide
+      - ssg-debian
     state: present
     update_cache: true
