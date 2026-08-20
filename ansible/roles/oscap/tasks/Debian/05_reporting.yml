@@ -5,5 +5,5 @@
     dst: "{{ oscap.scan_archive }}/"
     flat: true
   loop:
-    - "{{ oscap.results_xml_file }}"
-    - "{{ oscap.report_html_file }}"
+    - "{{ oscap_results_xml_file }}"
+    - "{{ oscap_report_html_file }}"

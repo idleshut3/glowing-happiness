@@ -1,5 +1,4 @@
 ---
-
 - name: Create scan output directory
   ansible.builtin.file:
     path: "{{ oscap.scan_outputs_dir }}"
