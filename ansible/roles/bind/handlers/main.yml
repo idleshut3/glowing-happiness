@@ -1,0 +1,8 @@
+---
+- name: restart bind
+  ansible.builtin.systemd:
+    name: bind9
+    state: restarted
+
+- name: reload bind
+  ansible.builtin.command: rndc reload

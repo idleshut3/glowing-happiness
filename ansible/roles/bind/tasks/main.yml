@@ -1,0 +1,64 @@
+---
+- name: Install BIND packages
+  ansible.builtin.apt:
+    name:
+      - bind9
+      - bind9-utils
+      - bind9-doc
+      - dnsutils
+    state: present
+    update_cache: true
+
+- name: Create BIND zones directory
+  ansible.builtin.file:
+    path: "{{ bind_zones_dir }}"
+    state: directory
+    owner: root
+    group: "{{ bind_group }}"
+    mode: '0755'
+
+- name: Create BIND log directory
+  ansible.builtin.file:
+    path: "{{ bind_log_dir }}"
+    state: directory
+    owner: "{{ bind_user }}"
+    group: "{{ bind_group }}"
+    mode: '0755'
+
+- name: Configure BIND options
+  ansible.builtin.template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+    owner: root
+    group: "{{ bind_group }}"
+    mode: '0644'
+  notify: restart bind
+
+- name: Configure BIND local zones
+  ansible.builtin.template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+    owner: root
+    group: "{{ bind_group }}"
+    mode: '0644'
+  notify: restart bind
+    
+- name: Deploy zone files
+  ansible.builtin.template:
+    src: zone.db.j2
+    dest: "/etc/bind/zones/{{ item.file }}"
+    owner: root
+    group: "{{ bind_group }}"
+    mode: '0644'
+  loop: "{{ bind_zones }}"
+  when: item.type == 'primary'
+  loop_control:
+    label: "{{ item.name }}"
+  notify: reload bind
+
+- name: Ensure BIND is started and enabled:
+    ansible.builtin.systemd:
+      name: bind9
+      state: started
+      enabled: true
+

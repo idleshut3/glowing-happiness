@@ -1,0 +1,16 @@
+; roles/bind/templates/zone.db.j2 - Zone file for {{ item.name }}
+$TTL    86400
+@       IN      SOA     ns1.{{ bind_zones[0].name }}. admin.{{ bind_zones[0].name }}. (
+                        {{ ansible_date_time.epoch }}  ; Serial (epoch timestamp)
+                        3600        ; Refresh
+                        1800        ; Retry
+                        604800      ; Expire
+                        86400 )     ; Minimum TTL
+
+; Name servers
+        IN      NS      ns1.{{ bind_zones[0].name }}.
+
+; Resource records
+{% for record in item.records %}
+{{ record.name }}    IN    {{ record.type }}    {{ record.value }}
+{% endfor %}

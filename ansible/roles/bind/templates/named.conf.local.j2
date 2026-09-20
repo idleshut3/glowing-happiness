@@ -1,0 +1,18 @@
+# roles/bind/templates/named.conf.local.j2 - Zone declarations
+{% for zone in bind_zones %}
+zone "{{ zone.name }}" {
+    type {{ zone.type }};
+{% if zone.type == 'secondary' %}
+    file "/var/cache/bind/{{ zone.file }}";
+{% else %}
+    file "/etc/bind/zones/{{ zone.file }}";
+{% endif %}
+{% if zone.type == 'primary' and zone.allow_transfer | default([]) | length > 0 %}
+    allow-transfer { {{ zone.allow_transfer | join('; ') }}; };
+{% endif %}
+{% if zone.type == 'secondary' %}
+    masters { {{ zone.masters | join('; ') }}; };
+{% endif %}
+};
+
+{% endfor %}

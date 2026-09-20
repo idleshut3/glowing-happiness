@@ -1,0 +1,50 @@
+# roles/bind/templates/named.conf.options.j2 - BIND9 options configuration
+options {
+    directory "/var/cache/bind";
+
+    // Listen on specified addresses
+    listen-on port {{ bind_listen_port }} { {{ bind_listen_address }}; };
+    listen-on-v6 { none; };
+
+    // Allow recursive queries only from trusted networks
+    allow-recursion {
+{% for network in bind_allow_recursion %}
+        {{ network }};
+{% endfor %}
+    };
+
+    // Forward unresolved queries to upstream DNS
+    forwarders {
+{% for forwarder in bind_forwarders %}
+        {{ forwarder }};
+{% endfor %}
+    };
+
+    // DNSSEC configuration
+    dnssec-validation {{ bind_dnssec_validation }};
+
+    // Security: hide version string
+    version "not disclosed";
+
+    // Security: restrict zone transfers
+    allow-transfer { none; };
+
+    // Performance tuning
+    max-cache-size 256M;
+    max-cache-ttl 86400;
+    max-ncache-ttl 3600;
+};
+
+// Logging configuration
+logging {
+    channel default_log {
+        file "/var/log/named/default.log" versions 3 size 5m;
+        severity info;
+        print-time yes;
+        print-severity yes;
+        print-category yes;
+    };
+
+    category default { default_log; };
+    category queries { default_log; };
+};
