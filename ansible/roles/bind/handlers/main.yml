@@ -4,5 +4,11 @@
     name: bind9
     state: restarted
 
+- name: disable systemd-resolved
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+
 - name: reload bind
   ansible.builtin.command: rndc reload

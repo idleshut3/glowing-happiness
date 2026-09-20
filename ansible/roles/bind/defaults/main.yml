@@ -7,30 +7,5 @@ bind_log_dir: /var/log/named
 
 bind_listen_address: any
 bind_listen_port: 53
-bind_allow_recursion:
-  - 192.168.1.0/24
-  - localhost
 
 bind_dnssec_validation: auto
-
-bind_forwarders:
-  - 1.1.1.1
-  - 9.9.9.9
-
-bind_zones:
-  - name: gitops-lab.internal
-    type: primary
-    file: db.gitops-lab.internal
-    allow_transfer: []
-    records:
-      - { name: "@", type: "A", value: "192.168.1.1" }
-      - { name: "ns1", type: "A", value: "192.168.1.1" }
-      - { name: "control", type: "A" value: "192.168.1.2" }
-
-  - name: 1.168.192.in-addr.arpa
-    type: primary
-    file: db.192.168.1
-    allow_transfer: []
-    records:
-      - { name: "1", type: "PTR", value: "ns1.gitops-lab.internal." }
-      - { name: "2", type: "PTR", value: "control.gitops-lab.internal" }

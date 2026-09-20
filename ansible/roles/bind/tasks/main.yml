@@ -1,4 +1,8 @@
 ---
+# =============
+# Prerequisites
+# =============
+
 - name: Install BIND packages
   ansible.builtin.apt:
     name:
@@ -24,6 +28,11 @@
     owner: "{{ bind_user }}"
     group: "{{ bind_group }}"
     mode: '0755'
+
+
+# =============
+# Configuration
+# =============
 
 - name: Configure BIND options
   ansible.builtin.template:
@@ -56,9 +65,20 @@
     label: "{{ item.name }}"
   notify: reload bind
 
-- name: Ensure BIND is started and enabled:
-    ansible.builtin.systemd:
-      name: bind9
-      state: started
-      enabled: true
+
+# ======
+# Deploy
+# ======
+
+- name: Check if systemd-resolved is enabled
+  ansible.builtin.command: systemctl is-enabled systemd-resolved.service
+  register: systemd_resolved_status
+  changed_when: systemd_resolved_status.rc == 0
+  notify: disable systemd-resolved
+
+- name: Ensure BIND is started and enabled
+  ansible.builtin.systemd:
+    name: bind9
+    state: started
+    enabled: true
 
