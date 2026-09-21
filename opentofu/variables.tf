@@ -44,6 +44,7 @@ variable "proxmox_vms" {
         proxmox_node    = string
         os_type         = string
         vm_name         = string
+        tags            = list(string)
         vm_description  = string
         vm_id           = number
         cpu_sockets     = optional(number, 1)
@@ -57,6 +58,6 @@ variable "proxmox_vms" {
         ipv4_address    = string
         ipv4_gateway    = string
         dns_servers     = list(string)
-        domain          = optional(string, "internal")
+        domain          = optional(string, "gitops-lab.internal")
     }))
 }

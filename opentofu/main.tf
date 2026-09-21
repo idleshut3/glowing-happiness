@@ -15,6 +15,7 @@ module "debian-vm" {
 
     proxmox_node    = each.value.proxmox_node
     vm_name         = each.value.vm_name
+    tags            = each.value.tags
     vm_description  = each.value.vm_description
     vm_id           = each.value.vm_id
     cpu_sockets     = each.value.cpu_sockets
@@ -37,6 +38,7 @@ module "alma-vm" {
 
     proxmox_node    = each.value.proxmox_node
     vm_name         = each.value.vm_name
+    tags            = each.value.tags
     vm_description  = each.value.vm_description
     vm_id           = each.value.vm_id
     cpu_sockets     = each.value.cpu_sockets

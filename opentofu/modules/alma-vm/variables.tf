@@ -8,6 +8,11 @@ variable "vm_name" {
     description = "Name of the VM to be created."
 }
 
+variable "tags" {
+    type = list(string)
+    description = "Tags to categorize VMs."
+}
+
 variable "vm_description" {
     type = string
     description = "Description of the VM's purpose."

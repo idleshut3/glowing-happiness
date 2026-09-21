@@ -13,6 +13,7 @@ resource "proxmox_virtual_environment_vm" "alma_vm" {
     name        = var.vm_name
     node_name   = var.proxmox_node
     vm_id       = var.vm_id
+    tags        = var.tags
     description = var.vm_description
 
     bios        = var.bios

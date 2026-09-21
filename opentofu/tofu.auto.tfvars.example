@@ -47,6 +47,7 @@ proxmox_vms = {
         proxmox_node    = "pve"
         os_type         = "debian"
         vm_name         = "debian-1"
+        tags            = ["dns"]
         vm_description  = "Debian server to host ..."
         vm_id           = 100
         cpu_sockets     = 1
@@ -60,12 +61,13 @@ proxmox_vms = {
         ipv4_address    = "192.168.1.1/24"
         ipv4_gateway    = "192.168.1.254"
         dns_servers     = ["1.1.1.1", "8.8.8.8"]
-        domain          = "internal"
+        domain          = "gitops-lab.internal"
     }
     "alma-1" = {
         proxmox_node    = "pve"
         os_type         = "alma"
         vm_name         = "alma-1"
+        tags            = ["git"]
         vm_description  = "Alma server to host..."
         vm_id           = 200
         cpu_sockets     = 1
@@ -79,6 +81,6 @@ proxmox_vms = {
         ipv4_address    = "192.168.1.100/24"
         ipv4_gateway    = "192.168.1.254"
         dns_servers     = ["1.1.1.1", "8.8.8.8"]
-        domain          = "internal"
+        domain          = "gitops-lab.internal"
     }
 }
