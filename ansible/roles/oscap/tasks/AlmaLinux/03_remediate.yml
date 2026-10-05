@@ -22,6 +22,8 @@
   ansible.builtin.find:
     paths:
       - /etc/sudoers.d/
+    file_type: file
+    excludes: "{{ oscap.ansible_sudo_file }}"
   register: sudoers
 
 - name: Remove lines containing NOPASSWD from files in /etc/sudoers.d/, excluding the ansible user
@@ -30,4 +32,6 @@
     replace: '# \g<1>'
     path: "{{ item.path }}"
     validate: /usr/sbin/visudo -cf %s
-  loop: "{{ sudoers.files | reject('search', '/etc/sudoers.d/90-cloud-init-users') | list }}"
+  loop: "{{ sudoers.files }}"
+  when: sudoers.files | length > 0
+

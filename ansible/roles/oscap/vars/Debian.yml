@@ -3,6 +3,9 @@
 scan_user: ansible
 scan_group: ansible
 
+# Ansible user's sudoers.d file on the target machine
+ansible_sudo_file: 90-cloud-init-users
+
 # Oscap scan results and reports directory on control node
 scan_archive: /security-scans/debian
 
